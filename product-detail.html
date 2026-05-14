@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">Ürün Detayı - CorePC Az</title>
+    <link rel="stylesheet" href="src/output.css" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 transition-colors duration-300">
+    <header class="bg-white dark:bg-gray-800 shadow-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">C</span>
+                    </div>
+                    <a href="index.html" class="text-2xl font-bold text-gray-800 dark:text-white">
+                        Core<span class="text-blue-600">PC</span>
+                    </a>
+                </div>
+
+                <!-- Back Button -->
+                <div class="flex items-center space-x-4">
+                    <button onclick="window.history.back()" class="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                        <span>Geri</span>
+                    </button>
+
+                    <!-- Dark Mode Toggle -->
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                        <svg id="lightIcon" class="w-5 h-5 text-gray-700 dark:text-gray-300 dark:hidden" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 3V4M12 20V21M4 12H3M6.31412 6.31412L5.5 5.5M17.6859 6.31412L18.5 5.5M6.31412 17.69L5.5 18.5001M17.6859 17.69L18.5 18.5001M21 12H20M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <svg id="darkIcon" class="w-5 h-5 text-gray-300 hidden dark:block" fill="currentColor" viewBox="0 0 35 35">
+                            <path d="M18.44,34.68a18.22,18.22,0,0,1-2.94-.24,18.18,18.18,0,0,1-15-20.86A18.06,18.06,0,0,1,9.59.63A2.42,2.42,0,0,1,12.2.79a2.39,2.39,0,0,1,1,2.41L11.9,3.1l1.23.22A15.66,15.66,0,0,0,23.34,21h0a15.82,15.82,0,0,0,8.47.53A2.44,2.44,0,0,1,34.47,25A18.18,18.18,0,0,1,18.44,34.68ZM10.67,2.89a15.67,15.67,0,0,0-5,22.77A15.66,15.66,0,0,0,32.18,24a18.49,18.49,0,0,1-9.65-.64A18.18,18.18,0,0,1,10.67,2.89Z" />
+                        </svg>
+                    </button>
+
+                    <!-- Cart Button -->
+                    <button id="shoppingCartBtn" class="relative p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                        <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z" />
+                        </svg>
+                        <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div id="productDetail" class="max-w-6xl mx-auto">
+            <!-- Loading State -->
+            <div id="loading" class="flex justify-center items-center h-64">
+                <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+            </div>
+
+            <!-- Product Detail Content -->
+            <div id="productContent" class="hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Product Images -->
+                    <div class="space-y-4">
+                        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                            <img id="mainImage" src="" alt="" class="w-full h-96 object-contain">
+                        </div>
+                        <div id="thumbnails" class="flex space-x-2 overflow-x-auto"></div>
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="space-y-6">
+                        <h1 id="productName" class="text-3xl font-bold text-gray-900 dark:text-white"></h1>
+                        
+                        <div id="productPrice" class="flex items-center space-x-4"></div>
+                        
+                        <div class="flex space-x-4">
+                            <!-- Add to Favorites -->
+                            <button id="favoriteBtn" class="flex items-center space-x-2 px-6 py-3 border border-red-300 text-red-600 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                                <svg id="heartIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                </svg>
+                                <span id="favoriteText">Sevimlilərimə əlavə et</span>
+                            </button>
+
+                            <!-- Add to Cart -->
+                            <button id="addToCartBtn" class="flex items-center space-x-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5"></path>
+                                </svg>
+                                <span>Səbətə əlavə et</span>
+                            </button>
+                        </div>
+
+                        <!-- Specifications -->
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Texniki Xüsusiyyətlər</h3>
+                            <div id="specifications" class="space-y-3"></div>
+                        </div>
+
+                        <!-- External Link -->
+                        <a id="externalLink" href="" target="_blank" class="inline-flex items-center space-x-2  bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="fixed top-0 right-0 w-80 h-full bg-white dark:bg-gray-800 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+        <div class="flex justify-between items-center p-4 border-b dark:border-gray-700">
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Səbət</h2>
+            <button id="closeCart" class="text-gray-600 dark:text-gray-300 hover:text-red-500">✕</button>
+        </div>
+        <div id="cartItems" class="p-4 space-y-4 overflow-y-auto h-[calc(100vh-120px)]">
+            <p class="text-gray-600 dark:text-gray-400" id="emptyCart">Səbət boşdur</p>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t dark:border-gray-700 bg-white dark:bg-gray-800">
+            <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                Sifarişi tamamla
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Get product data from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const productType = urlParams.get('type');
+        const productId = urlParams.get('id');
+
+        // Dark mode functionality
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        const htmlElement = document.documentElement;
+        let isDarkMode = localStorage.getItem('darkMode') === 'true';
+        
+        if (isDarkMode) {
+            htmlElement.classList.add("dark");
+        }
+        
+        darkModeToggle.addEventListener("click", () => {
+            isDarkMode = !isDarkMode;
+            localStorage.setItem('darkMode', isDarkMode);
+            if (isDarkMode) {
+                htmlElement.classList.add("dark");
+            } else {
+                htmlElement.classList.remove("dark");
+            }
+        });
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+        
+        updateCartCount();
+
+        // Cart sidebar
+        const cartSidebar = document.getElementById("cartSidebar");
+        const shoppingCartBtn = document.getElementById("shoppingCartBtn");
+        const closeCart = document.getElementById("closeCart");
+
+        function openCart() {
+            cartSidebar.classList.remove("translate-x-full");
+            cartSidebar.classList.add("translate-x-0");
+            displayCartItems();
+        }
+
+        function closeCartSidebar() {
+            cartSidebar.classList.remove("translate-x-0");
+            cartSidebar.classList.add("translate-x-full");
+        }
+
+        shoppingCartBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            openCart();
+        });
+
+        closeCart.addEventListener("click", closeCartSidebar);
+
+        function displayCartItems() {
+            const cartItems = document.getElementById('cartItems');
+            const emptyCart = document.getElementById('emptyCart');
+            
+            if (cart.length === 0) {
+                emptyCart.style.display = 'block';
+                return;
+            }
+            
+            emptyCart.style.display = 'none';
+            cartItems.innerHTML = cart.map(item => `
+                <div class="flex items-center space-x-3 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                    <img src="${item.image}" alt="${item.name}" class="w-12 h-12 object-contain">
+                    <div class="flex-1">
+                        <h4 class="text-sm font-medium text-gray-900 dark:text-white line-clamp-2">${item.name}</h4>
+                        <p class="text-sm text-green-600 dark:text-green-400">${item.price}</p>
+                    </div>
+                    <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-700">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            displayCartItems();
+        }
+
+        // Load product details
+        async function loadProductDetails() {
+            try {
+                const apiUrl = {
+                    'laptop': 'https://corepcdata.onrender.com/laptops',
+                    'pc': 'https://corepcdata.onrender.com/pcomps',
+                    'monitor': 'https://corepcdata.onrender.com/monitors',
+                    'component': 'https://corepcdata.onrender.com/components'
+                }[productType];
+
+                if (!apiUrl) {
+                    throw new Error('Invalid product type');
+                }
+
+                const response = await fetch(apiUrl);
+                const products = await response.json();
+                const product = products[parseInt(productId)];
+
+                if (!product) {
+                    throw new Error('Product not found');
+                }
+
+                displayProduct(product);
+            } catch (error) {
+                console.error('Error loading product:', error);
+                document.getElementById('loading').innerHTML = `
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold text-red-500 mb-4">Ürün tapılmadı</h2>
+                        <button onclick="window.history.back()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            Geri qayıt
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function displayProduct(product) {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('productContent').classList.remove('hidden');
+
+            // Set page title
+            document.getElementById('page-title').textContent = `${product.name} - CorePC Az`;
+            document.getElementById('productName').textContent = product.name;
+            document.getElementById('mainImage').src = product.mainImage;
+            document.getElementById('mainImage').alt = product.name;
+            document.getElementById('externalLink').href = product.url;
+
+            // Price processing
+            const prices = product.price.replace(/\s+/g, "").match(/(\d+₼)/g);
+            let priceHTML = "";
+            
+            if (prices && prices.length > 1) {
+                priceHTML = `
+                    <span class="text-3xl font-bold text-green-600 dark:text-green-400">${prices[0]}</span>
+                    <span class="text-xl text-gray-500 dark:text-gray-400 line-through">${prices[1]}</span>
+                `;
+            } else if (prices && prices.length === 1) {
+                priceHTML = `<span class="text-3xl font-bold text-green-600 dark:text-green-400">${prices[0]}</span>`;
+            }
+            
+            document.getElementById('productPrice').innerHTML = priceHTML;
+
+            // Specifications
+            const specsContainer = document.getElementById('specifications');
+            specsContainer.innerHTML = Object.entries(product.specs)
+                .map(([key, value]) => `
+                    <div class="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
+                        <span class="font-medium text-gray-700 dark:text-gray-300">${key}:</span>
+                        <span class="text-gray-900 dark:text-white">${value || '-'}</span>
+                    </div>
+                `).join('');
+
+            // Check if product is in favorites
+            const isFavorite = favorites.some(fav => fav.id === `${productType}-${productId}`);
+            updateFavoriteButton(isFavorite);
+
+            // Add event listeners
+            document.getElementById('favoriteBtn').addEventListener('click', () => toggleFavorite(product));
+            document.getElementById('addToCartBtn').addEventListener('click', () => addToCart(product));
+        }
+
+        function toggleFavorite(product) {
+            const productKey = `${productType}-${productId}`;
+            const existingIndex = favorites.findIndex(fav => fav.id === productKey);
+            
+            if (existingIndex > -1) {
+                favorites.splice(existingIndex, 1);
+                updateFavoriteButton(false);
+            } else {
+                const favoriteItem = {
+                    id: productKey,
+                    name: product.name,
+                    image: product.mainImage,
+                    price: product.price.match(/(\d+₼)/g)?.[0] || '',
+                    url: product.url,
+                    type: productType
+                };
+                favorites.push(favoriteItem);
+                updateFavoriteButton(true);
+            }
+            
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+        }
+
+        function updateFavoriteButton(isFavorite) {
+            const heartIcon = document.getElementById('heartIcon');
+            const favoriteText = document.getElementById('favoriteText');
+            
+            if (isFavorite) {
+                heartIcon.setAttribute('fill', 'currentColor');
+                favoriteText.textContent = 'Sevimlilərindən çıxart';
+            } else {
+                heartIcon.setAttribute('fill', 'none');
+                favoriteText.textContent = 'Sevimlilərimə əlavə et';
+            }
+        }
+
+        function addToCart(product) {
+            const productKey = `${productType}-${productId}`;
+            const existingItem = cart.find(item => item.id === productKey);
+            
+            if (!existingItem) {
+                const cartItem = {
+                    id: productKey,
+                    name: product.name,
+                    image: product.mainImage,
+                    price: product.price.match(/(\d+₼)/g)?.[0] || '',
+                    url: product.url,
+                    type: productType
+                };
+                cart.push(cartItem);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                
+                // Show success message
+                const btn = document.getElementById('addToCartBtn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<span>Əlavə edildi ✓</span>';
+                btn.classList.add('bg-green-600', 'hover:bg-green-700');
+                btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    btn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                }, 2000);
+            }
+        }
+
+        // Close cart when clicking outside
+        document.addEventListener("click", (e) => {
+            const isCartOpen = !cartSidebar.classList.contains("translate-x-full");
+            if (isCartOpen && !cartSidebar.contains(e.target) && !shoppingCartBtn.contains(e.target)) {
+                closeCartSidebar();
+            }
+        });
+
+        // Load product on page load
+        if (productType && productId !== null) {
+            loadProductDetails();
+        } else {
+            document.getElementById('loading').innerHTML = `
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold text-red-500 mb-4">Ürün məlumatları tapılmadı</h2>
+                    <a href="index.html" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Ana səhifəyə qayıt
+                    </a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

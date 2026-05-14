@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="az">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>CorePC Az</title>
+      <link rel="stylesheet" href="src/output.css" />
+      <style>
+         @import url("https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+      </style>
+   </head>
+   <body class="bg-white dark:bg-gray-900 transition-colors duration-300">
+      <header class="bg-white dark:bg-gray-800 shadow-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+         <nav class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+               <!-- Logo -->
+               <div class="flex items-center space-x-2">
+                  <div class="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                     <span class="text-white font-bold text-sm">C</span>
+                  </div>
+                  <span class="text-2xl font-bold text-gray-800 dark:text-white"> Core<span class="text-blue-600">PC</span> </span>
+               </div>
+
+               <!-- Desktop Navigation -->
+               <ul class="hidden md:flex items-center space-x-8">
+                  <li>
+                     <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200"> Məhsullar </a>
+                  </li>
+                  <li class="relative group">
+                     <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200 flex items-center">
+                        Kateqoriyalar
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                     </a>
+                     <!-- Dropdown -->
+                     <div class="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                        <div class="py-2">
+                           <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">Masaüstü PC</a>
+                           <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">Noutbuk</a>
+                           <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600">Aksessuarlar</a>
+                        </div>
+                     </div>
+                  </li>
+                  <li>
+                     <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200"> Xidmətlər </a>
+                  </li>
+                  <li>
+                     <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200"> Əlaqə </a>
+                  </li>
+               </ul>
+
+               <!-- Search Bar & Actions -->
+               <div class="flex items-center space-x-4">
+                  <!-- Search Bar -->
+                  <div class="hidden sm:flex relative">
+                     <input type="text" placeholder="Məhsul axtarın..." class="w-64 pl-4 pr-10 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" />
+                     <button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
+                           <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                     </button>
+                  </div>
+
+                  <!-- Dark Mode Toggle -->
+                  <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200" aria-label="Dark mode toggle">
+                     <svg id="lightIcon" class="w-5 h-5 text-gray-700 dark:text-gray-300 dark:hidden" viewBox="0 0 24 24" fill="none">
+                        <path
+                           d="M12 3V4M12 20V21M4 12H3M6.31412 6.31412L5.5 5.5M17.6859 6.31412L18.5 5.5M6.31412 17.69L5.5 18.5001M17.6859 17.69L18.5 18.5001M21 12H20M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
+                           stroke="currentColor"
+                           stroke-width="2"
+                           stroke-linecap="round"
+                           stroke-linejoin="round" />
+                     </svg>
+                     <svg id="darkIcon" class="w-5 h-5 text-gray-300 hidden dark:block" fill="currentColor" viewBox="0 0 35 35">
+                        <path
+                           d="M18.44,34.68a18.22,18.22,0,0,1-2.94-.24,18.18,18.18,0,0,1-15-20.86A18.06,18.06,0,0,1,9.59.63A2.42,2.42,0,0,1,12.2.79a2.39,2.39,0,0,1,1,2.41L11.9,3.1l1.23.22A15.66,15.66,0,0,0,23.34,21h0a15.82,15.82,0,0,0,8.47.53A2.44,2.44,0,0,1,34.47,25A18.18,18.18,0,0,1,18.44,34.68ZM10.67,2.89a15.67,15.67,0,0,0-5,22.77A15.66,15.66,0,0,0,32.18,24a18.49,18.49,0,0,1-9.65-.64A18.18,18.18,0,0,1,10.67,2.89Z" />
+                     </svg>
+                  </button>
+
+                  <!-- Shopping Cart -->
+                  <button id="shoppingCartBtn" class="relative p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                     <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z" />
+                     </svg>
+                     <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                  </button>
+
+                  <!-- Mobile Menu Button -->
+                  <button id="mobileMenuToggle" class="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                     <svg class="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                     </svg>
+                  </button>
+               </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="md:hidden max-h-0 overflow-hidden transition-all duration-[1s] ease-in-out mt-0 pb-0 border-gray-200 dark:border-gray-700">
+               <div class="relative px-2">
+                  <input type="text" placeholder="Məhsul axtarın..." class="w-full pl-4 pr-10 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" />
+                  <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">
+                     <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
+                        <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                     </svg>
+                  </button>
+               </div>
+               <div class="mt-4 space-y-2 px-2 pb-4">
+                  <a href="#" class="block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">Məhsullar</a>
+                  <a href="#" class="block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">Kateqoriyalar</a>
+                  <a href="#" class="block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">Xidmətlər</a>
+                  <a href="#" class="block py-2 px-4 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">Əlaqə</a>
+               </div>
+            </div>
+         </nav>
+
+         <!-- Cart Sidebar -->
+         <div id="cartSidebar" class="fixed top-0 right-0 w-80 h-full bg-white dark:bg-gray-800 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+            <div class="flex justify-between items-center p-4 border-b dark:border-gray-700">
+               <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Səbət</h2>
+               <button id="closeCart" class="text-gray-600 dark:text-gray-300 hover:text-red-500">✕</button>
+            </div>
+            <div id="cartItems" class="p-4 space-y-4 overflow-y-auto h-[calc(100vh-120px)]">
+               <p class="text-gray-600 dark:text-gray-400" id="emptyCart">Səbət boşdur</p>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 p-4 border-t dark:border-gray-700 bg-white dark:bg-gray-800">
+               <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                  Sifarişi tamamla
+               </button>
+            </div>
+         </div>
+      </header>
+
+      <!-- Demo Content -->
+      <main class="container mx-auto px-4">
+         <div class="text-center h-[80vh] flex flex-col items-center justify-center">
+            <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">CorePC Az-ə Xoş Gəlmisiniz</h1>
+            <p class="text-gray-600 dark:text-gray-400 mb-8">Azərbaycanda ən yaxşı kompyuter və texnologiya məhsulları</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+               <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                  <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Masaüstü PC</h3>
+                  <p class="text-gray-600 dark:text-gray-400">Yüksək performanslı masaüstü kompyuterlər</p>
+               </div>
+               <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                  <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Noutbuklar</h3>
+                  <p class="text-gray-600 dark:text-gray-400">Portativ və güclü noutbuk modelləri</p>
+               </div>
+               <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                  <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Aksessuarlar</h3>
+                  <p class="text-gray-600 dark:text-gray-400">Klaviatura, siçan və digər aksesuarlar</p>
+               </div>
+            </div>
+         </div>
+         <section class="my-10">
+            <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">Laptoplar</h2>
+            <div id="laptoplar" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-6"></div>
+         </section>
+         <section class="my-10">
+            <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">Masaüstü kompyuterlər</h2>
+            <div id="personal-comps" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-6"></div>
+         </section>
+         <section class="my-10">
+            <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">Monitorlar</h2>
+            <div id="monitors" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-6"></div>
+         </section>
+         <section class="my-10">
+            <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">Kompyuter Avadanlıqları</h2>
+            <div id="components" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-6"></div>
+         </section>
+      </main>
+
+      <script src="./js/laptops.js"></script>
+      <script src="./js/pckomps.js"></script>
+      <script src="./js/monitors.js"></script>
+      <script src="./js/components.js"></script>
+      <script>
+         // Initialize cart and favorites from localStorage
+         let cart = JSON.parse(localStorage.getItem('cart')) || [];
+         let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+         // Update cart count function
+         function updateCartCount() {
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount) {
+               cartCount.textContent = cart.length;
+            }
+         }
+
+         // Display cart items
+         function displayCartItems() {
+            const cartItems = document.getElementById('cartItems');
+            const emptyCart = document.getElementById('emptyCart');
+            
+            if (cart.length === 0) {
+               emptyCart.style.display = 'block';
+               cartItems.innerHTML = '<p class="text-gray-600 dark:text-gray-400" id="emptyCart">Səbət boşdur</p>';
+               return;
+            }
+            
+            emptyCart.style.display = 'none';
+            cartItems.innerHTML = cart.map(item => `
+               <div class="flex items-center space-x-3 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                  <img src="${item.image}" alt="${item.name}" class="w-12 h-12 object-contain">
+                  <div class="flex-1">
+                     <h4 class="text-sm font-medium text-gray-900 dark:text-white line-clamp-2">${item.name}</h4>
+                     <p class="text-sm text-green-600 dark:text-green-400">${item.price}</p>
+                  </div>
+                  <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-700">
+                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                     </svg>
+                  </button>
+               </div>
+            `).join('') + '<div class="absolute bottom-0 left-0 right-0 p-4 border-t dark:border-gray-700 bg-white dark:bg-gray-800"><button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">Sifarişi tamamla</button></div>';
+         }
+
+         // Remove from cart function
+         function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            displayCartItems();
+         }
+
+         // Dark mode functionality
+         const darkModeToggle = document.getElementById("darkModeToggle");
+         const htmlElement = document.documentElement;
+         let isDarkMode = localStorage.getItem('darkMode') === 'true';
+         
+         if (isDarkMode) {
+            htmlElement.classList.add("dark");
+         }
+         
+         darkModeToggle.addEventListener("click", () => {
+            isDarkMode = !isDarkMode;
+            localStorage.setItem('darkMode', isDarkMode);
+            if (isDarkMode) {
+               htmlElement.classList.add("dark");
+            } else {
+               htmlElement.classList.remove("dark");
+            }
+         });
+
+         // Mobile menu functionality with transition
+         const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+         const mobileMenu = document.getElementById("mobileMenu");
+
+         mobileMenuToggle.addEventListener("click", () => {
+            if (mobileMenu.classList.contains("max-h-0")) {
+               mobileMenu.classList.remove("max-h-0", "mt-0", "pb-0");
+               mobileMenu.classList.add("max-h-screen", "mt-4", "pb-4");
+            } else {
+               mobileMenu.classList.add("max-h-0", "mt-0", "pb-0");
+               mobileMenu.classList.remove("max-h-screen", "mt-4", "pb-4");
+            }
+         });
+
+         document.addEventListener("click", (e) => {
+            const isMenuOpen = mobileMenu.classList.contains("max-h-screen");
+            if (isMenuOpen && !mobileMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+               mobileMenu.classList.add("max-h-0", "mt-0", "pb-0");
+               mobileMenu.classList.remove("max-h-screen", "mt-4", "pb-4");
+            }
+         });
+
+         /// Cart sidebar functionality
+         const cartSidebar = document.getElementById("cartSidebar");
+         const shoppingCartBtn = document.getElementById("shoppingCartBtn");
+         const closeCart = document.getElementById("closeCart");
+
+         function openCart() {
+            cartSidebar.classList.remove("translate-x-full");
+            cartSidebar.classList.add("translate-x-0");
+            displayCartItems();
+         }
+
+         function closeCartSidebar() {
+            cartSidebar.classList.remove("translate-x-0");
+            cartSidebar.classList.add("translate-x-full");
+         }
+
+         shoppingCartBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            openCart();
+         });
+
+         closeCart.addEventListener("click", () => {
+            closeCartSidebar();
+         });
+
+         // Close cart when clicking outside
+         document.addEventListener("click", (e) => {
+            const isCartOpen = !cartSidebar.classList.contains("translate-x-full");
+            if (isCartOpen && !cartSidebar.contains(e.target) && !shoppingCartBtn.contains(e.target)) {
+               closeCartSidebar();
+            }
+         });
+
+         // Initialize cart count on page load
+         updateCartCount();
+      </script>
+   </body>
+</html>
