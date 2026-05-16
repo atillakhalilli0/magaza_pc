@@ -1,329 +1,146 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="az" class="">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sevimli Məhsullar - CorePC Az</title>
-    <link rel="stylesheet" href="src/output.css" />
-    <style>
-        @import url("https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sevimlilər — AzTech</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] } } } }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-white dark:bg-gray-900 transition-colors duration-300">
-    <header class="bg-white dark:bg-gray-800 shadow-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
-        <nav class="container mx-auto px-4 py-3">
-            <div class="flex items-center justify-between">
-                <!-- Logo -->
-                <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-sm">C</span>
-                    </div>
-                    <a href="index.html" class="text-2xl font-bold text-gray-800 dark:text-white">
-                        Core<span class="text-blue-600">PC</span>
-                    </a>
-                </div>
 
-                <!-- Navigation -->
-                <div class="flex items-center space-x-4">
-                    <a href="index.html" class="flex items-center space-x-2 px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                        </svg>
-                        <span>Ana Səhifə</span>
-                    </a>
+<body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans antialiased min-h-screen">
 
-                    <!-- Dark Mode Toggle -->
-                    <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
-                        <svg id="lightIcon" class="w-5 h-5 text-gray-700 dark:text-gray-300 dark:hidden" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 3V4M12 20V21M4 12H3M6.31412 6.31412L5.5 5.5M17.6859 6.31412L18.5 5.5M6.31412 17.69L5.5 18.5001M17.6859 17.69L18.5 18.5001M21 12H20M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <svg id="darkIcon" class="w-5 h-5 text-gray-300 hidden dark:block" fill="currentColor" viewBox="0 0 35 35">
-                            <path d="M18.44,34.68a18.22,18.22,0,0,1-2.94-.24,18.18,18.18,0,0,1-15-20.86A18.06,18.06,0,0,1,9.59.63A2.42,2.42,0,0,1,12.2.79a2.39,2.39,0,0,1,1,2.41L11.9,3.1l1.23.22A15.66,15.66,0,0,0,23.34,21h0a15.82,15.82,0,0,0,8.47.53A2.44,2.44,0,0,1,34.47,25A18.18,18.18,0,0,1,18.44,34.68ZM10.67,2.89a15.67,15.67,0,0,0-5,22.77A15.66,15.66,0,0,0,32.18,24a18.49,18.49,0,0,1-9.65-.64A18.18,18.18,0,0,1,10.67,2.89Z" />
-                        </svg>
-                    </button>
+  <!-- Cart Overlay + Sidebar -->
+  <div id="cart-overlay"
+    class="fixed inset-0 bg-black/40 z-30 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+  <div id="cart-sidebar"
+    class="fixed top-0 right-0 h-full w-80 max-w-full bg-white dark:bg-gray-900 shadow-2xl z-40
+           translate-x-full transition-transform duration-300 flex flex-col border-l border-gray-200 dark:border-gray-800">
+  </div>
 
-                    <!-- Cart Button -->
-                    <button id="shoppingCartBtn" class="relative p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
-                        <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z" />
-                        </svg>
-                        <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
-                    </button>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container mx-auto px-4 py-8">
-        <div class="max-w-6xl mx-auto">
-            <!-- Header -->
-            <div class="flex items-center justify-between mb-8">
-                <div class="flex items-center space-x-3">
-                    <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                    </svg>
-                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Sevimli Məhsullar</h1>
-                    <span id="favoritesCount" class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full text-sm font-medium">0 məhsul</span>
-                </div>
-                
-                <button onclick="clearAllFavorites()" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
-                    Hamısını təmizlə
-                </button>
-            </div>
-
-            <!-- Favorites Grid -->
-            <div id="favoritesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                <!-- Favorites will be loaded here -->
-            </div>
-
-            <!-- Empty State -->
-            <div id="emptyState" class="hidden text-center py-16">
-                <svg class="w-24 h-24 text-gray-400 dark:text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                </svg>
-                <h3 class="text-xl font-semibold text-gray-500 dark:text-gray-400 mb-2">Sevimli məhsulunuz yoxdur</h3>
-                <p class="text-gray-400 dark:text-gray-500 mb-6">İstədiyiniz məhsulları sevimlilərinizə əlavə edin</p>
-                <a href="index.html" class="inline-flex items-center space-x-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                    </svg>
-                    <span>Məhsullara baxın</span>
-                </a>
-            </div>
+  <!-- Header -->
+  <header class="sticky top-0 z-20 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md
+                 border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-4">
+      <a href="index.html" class="flex items-center gap-2 shrink-0">
+        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+              d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+          </svg>
         </div>
-    </main>
-
-    <!-- Cart Sidebar -->
-    <div id="cartSidebar" class="fixed top-0 right-0 w-80 h-full bg-white dark:bg-gray-800 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50">
-        <div class="flex justify-between items-center p-4 border-b dark:border-gray-700">
-            <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Səbət</h2>
-            <button id="closeCart" class="text-gray-600 dark:text-gray-300 hover:text-red-500">✕</button>
-        </div>
-        <div id="cartItems" class="p-4 space-y-4 overflow-y-auto h-[calc(100vh-120px)]">
-            <p class="text-gray-600 dark:text-gray-400" id="emptyCart">Səbət boşdur</p>
-        </div>
-        <div class="absolute bottom-0 left-0 right-0 p-4 border-t dark:border-gray-700 bg-white dark:bg-gray-800">
-            <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                Sifarişi tamamla
-            </button>
-        </div>
+        <span class="font-bold text-lg tracking-tight text-gray-900 dark:text-white">AzTech</span>
+      </a>
+      <div class="flex items-center gap-1 ml-auto">
+        <button id="theme-btn" aria-label="Tema dəyiş"
+          class="p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-400">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+        </button>
+        <button id="cart-btn" aria-label="Səbət"
+          class="relative p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-400">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 4h11m-9 4a1 1 0 100-2 1 1 0 000 2zm9 0a1 1 0 100-2 1 1 0 000 2z"/>
+          </svg>
+          <span data-cart-count
+            class="hidden absolute -top-1 -right-1 bg-blue-600 text-white text-xs font-bold
+                   min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-1">0</span>
+        </button>
+      </div>
     </div>
+  </header>
 
-    <script>
-        // Initialize data from localStorage
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  <!-- Page header -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-4">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+          <svg class="w-6 h-6 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+          Sevimlilər
+        </h1>
+        <p id="fav-count" class="text-sm text-gray-500 dark:text-gray-400 mt-0.5"></p>
+      </div>
+      <button id="clear-favs-btn"
+        class="hidden text-xs text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-red-300">
+        Hamısını sil
+      </button>
+    </div>
+  </div>
 
-        // Dark mode functionality
-        const darkModeToggle = document.getElementById("darkModeToggle");
-        const htmlElement = document.documentElement;
-        let isDarkMode = localStorage.getItem('darkMode') === 'true';
-        
-        if (isDarkMode) {
-            htmlElement.classList.add("dark");
-        }
-        
-        darkModeToggle.addEventListener("click", () => {
-            isDarkMode = !isDarkMode;
-            localStorage.setItem('darkMode', isDarkMode);
-            if (isDarkMode) {
-                htmlElement.classList.add("dark");
-            } else {
-                htmlElement.classList.remove("dark");
-            }
-        });
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-4 pb-16">
+    <div id="favorites-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+  </main>
 
-        // Update cart count
-        function updateCartCount() {
-            const cartCount = document.getElementById('cartCount');
-            if (cartCount) {
-                cartCount.textContent = cart.length;
-            }
-        }
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    UI.initDarkMode();
+    UI.initToasts();
 
-        // Update favorites count
-        function updateFavoritesCount() {
-            const favoritesCount = document.getElementById('favoritesCount');
-            if (favoritesCount) {
-                favoritesCount.textContent = `${favorites.length} məhsul`;
-            }
-        }
+    Store.on('cart:update', () => UI.renderCartSidebar());
+    Store.on('cart:panel', () => UI.renderCartSidebar());
+    document.getElementById('cart-btn').addEventListener('click', () => Store.toggleCart());
+    document.getElementById('cart-overlay').addEventListener('click', () => Store.closeCart());
+    document.getElementById('theme-btn').addEventListener('click', UI.toggleDarkMode);
+    UI.renderCartSidebar();
 
-        // Display favorites
-        function displayFavorites() {
-            const grid = document.getElementById('favoritesGrid');
-            const emptyState = document.getElementById('emptyState');
-            
-            if (favorites.length === 0) {
-                grid.classList.add('hidden');
-                emptyState.classList.remove('hidden');
-                return;
-            }
-            
-            grid.classList.remove('hidden');
-            emptyState.classList.add('hidden');
-            
-            grid.innerHTML = favorites.map(item => `
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all relative group">
-                    <!-- Remove from favorites button -->
-                    <button onclick="removeFromFavorites('${item.id}')" 
-                            class="absolute top-3 right-3 z-10 p-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition-all shadow-lg">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                        </svg>
-                    </button>
+    function renderFavorites() {
+      const grid     = document.getElementById('favorites-grid');
+      const countEl  = document.getElementById('fav-count');
+      const clearBtn = document.getElementById('clear-favs-btn');
+      const favs     = Store.favorites;
 
-                    <a href="product-detail.html?type=${item.type}&id=${item.index}" class="block">
-                        <img src="${item.image}" alt="${item.name}" class="w-full h-56 object-contain bg-gray-100 dark:bg-gray-700 p-4">
-                    </a>
-                    <div class="p-4">
-                        <h2 class="text-lg font-semibold mb-2 line-clamp-2 text-gray-900 dark:text-gray-100">${item.name}</h2>
-                        <div class="mb-4">
-                            <span class="text-green-600 dark:text-green-400 font-bold text-xl">${item.price}</span>
-                        </div>
-                        
-                        <!-- Action Buttons -->
-                        <div class="flex space-x-2">
-                            <button onclick="addToCart('${item.id}', '${item.name.replace(/'/g, "\\'")}', '${item.image}', '${item.price}', '${item.type}', ${item.index})"
-                                    class="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center justify-center space-x-2">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5"></path>
-                                </svg>
-                                <span class="text-sm">Səbətə əlavə et</span>
-                            </button>
-                            <a href="product-detail.html?type=${item.type}&id=${item.index}" 
-                               class="px-3 py-2 border border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors flex items-center justify-center">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
+      countEl.textContent = favs.length === 0
+        ? 'Heç bir məhsul əlavə edilməyib'
+        : `${favs.length} məhsul saxlanılıb`;
 
-        // Remove from favorites
-        function removeFromFavorites(productId) {
-            favorites = favorites.filter(item => item.id !== productId);
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-            updateFavoritesCount();
-            displayFavorites();
-        }
+      clearBtn.classList.toggle('hidden', favs.length === 0);
 
-        // Clear all favorites
-        function clearAllFavorites() {
-            if (favorites.length === 0) return;
-            
-            if (confirm('Bütün sevimli məhsulları təmizləmək istədiyinizdən əminsiniz?')) {
-                favorites = [];
-                localStorage.setItem('favorites', JSON.stringify(favorites));
-                updateFavoritesCount();
-                displayFavorites();
-            }
-        }
+      if (favs.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full flex flex-col items-center justify-center py-24 gap-4 text-center">
+            <svg class="w-16 h-16 text-gray-200 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+            <p class="text-gray-500 dark:text-gray-400 text-sm">Sevimlilər siyahısı boşdur</p>
+            <a href="index.html"
+              class="mt-2 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm
+                     font-semibold px-5 py-2.5 rounded-xl transition-colors">
+              Alış-verişə başla
+            </a>
+          </div>`;
+        return;
+      }
 
-        // Add to cart
-        function addToCart(productId, name, image, price, type, index) {
-            const existingItem = cart.find(item => item.id === productId);
-            
-            if (!existingItem) {
-                const cartItem = {
-                    id: productId,
-                    name: name,
-                    image: image,
-                    price: price,
-                    type: type,
-                    index: index
-                };
-                cart.push(cartItem);
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCartCount();
-                
-                // Show success message
-                const button = event.target.closest('button');
-                const originalHTML = button.innerHTML;
-                button.innerHTML = '<span class="text-sm">Əlavə edildi ✓</span>';
-                button.classList.add('bg-green-600', 'hover:bg-green-700');
-                button.classList.remove('bg-blue-600', 'hover:bg-blue-700');
-                
-                setTimeout(() => {
-                    button.innerHTML = originalHTML;
-                    button.classList.remove('bg-green-600', 'hover:bg-green-700');
-                    button.classList.add('bg-blue-600', 'hover:bg-blue-700');
-                }, 2000);
-            }
-        }
+      const fragment = document.createDocumentFragment();
+      favs.forEach(p => fragment.appendChild(UI.productCard(p)));
+      grid.innerHTML = '';
+      grid.appendChild(fragment);
+    }
 
-        // Cart sidebar functionality
-        const cartSidebar = document.getElementById("cartSidebar");
-        const shoppingCartBtn = document.getElementById("shoppingCartBtn");
-        const closeCart = document.getElementById("closeCart");
+    Store.on('favorites:update', renderFavorites);
+    Store.on('comparison:update', () => UI.renderCompareBar());
 
-        function openCart() {
-            cartSidebar.classList.remove("translate-x-full");
-            cartSidebar.classList.add("translate-x-0");
-            displayCartItems();
-        }
+    document.getElementById('clear-favs-btn').addEventListener('click', () => {
+      Store.favorites.splice(0);
+      // Manually persist since we mutated directly
+      localStorage.setItem('aztech_favs', '[]');
+      Store.emit('favorites:update', []);
+    });
 
-        function closeCartSidebar() {
-            cartSidebar.classList.remove("translate-x-0");
-            cartSidebar.classList.add("translate-x-full");
-        }
-
-        function displayCartItems() {
-            const cartItems = document.getElementById('cartItems');
-            const emptyCart = document.getElementById('emptyCart');
-            
-            if (cart.length === 0) {
-                emptyCart.style.display = 'block';
-                return;
-            }
-            
-            emptyCart.style.display = 'none';
-            cartItems.innerHTML = cart.map(item => `
-                <div class="flex items-center space-x-3 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                    <img src="${item.image}" alt="${item.name}" class="w-12 h-12 object-contain">
-                    <div class="flex-1">
-                        <h4 class="text-sm font-medium text-gray-900 dark:text-white line-clamp-2">${item.name}</h4>
-                        <p class="text-sm text-green-600 dark:text-green-400">${item.price}</p>
-                    </div>
-                    <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-700">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                        </svg>
-                    </button>
-                </div>
-            `).join('');
-        }
-
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
-            displayCartItems();
-        }
-
-        shoppingCartBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            openCart();
-        });
-
-        closeCart.addEventListener("click", closeCartSidebar);
-
-        // Close cart when clicking outside
-        document.addEventListener("click", (e) => {
-            const isCartOpen = !cartSidebar.classList.contains("translate-x-full");
-            if (isCartOpen && !cartSidebar.contains(e.target) && !shoppingCartBtn.contains(e.target)) {
-                closeCartSidebar();
-            }
-        });
-
-        // Initialize page
-        updateCartCount();
-        updateFavoritesCount();
-        displayFavorites();
-    </script>
+    renderFavorites();
+    UI.renderCompareBar();
+  </script>
 </body>
 </html>
